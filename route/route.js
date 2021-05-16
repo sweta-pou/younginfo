@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var express = require("express"),
     router  = express.Router();
 const pool = require('../database');
@@ -6,12 +8,13 @@ var urlExists = require('url-exists');
 
 
 router.get('/',function(req,res)
-{ pool.query('CREATE TABLE IF NOT EXISTS report(year TEXT not null ,country text not null,product text not null,sales integer,PRIMARY KEY(year,country,product));',(error, results) => {
+{ pool.query('CREATE TABLE IF NOT EXISTS report(year TEXT not null ,country text not null,product text not null,sales integer,PRIMARY KEY(year,country,product));',function(error, results){
     if(error){console.log(error);}
     else{
         console.log(" report table created");
     }
 })
+console.log("dtatabase",process.env.DATABSE_URL);
     res.render('home');
 }
 ) 
