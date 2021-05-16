@@ -8,13 +8,17 @@ var urlExists = require('url-exists');
 
 
 router.get('/',function(req,res)
-{ pool.query('CREATE TABLE IF NOT EXISTS report(year TEXT not null ,country text not null,product text not null,sales integer,PRIMARY KEY(year,country,product));',function(error, results){
+{ pool.query(`CREATE TABLE IF NOT EXISTS report
+                   (year TEXT not null ,
+                    country text not null,
+                    product text not null,
+                    sales integer,
+                    PRIMARY KEY(year,country,product));`,function(error, results){
     if(error){console.log(error);}
     else{
         console.log(" report table created");
     }
 })
-console.log("dtatabase",process.env.DATABASE_URL);
     res.render('home');
 }
 ) 
@@ -48,7 +52,10 @@ router.post('/fetch',  function(req,res)
                                      if(check){
                                       data.forEach(element => {
                                         pool.query(`INSERT INTO report(year,country,product,sales)
-                                         VALUES('${element.year}','${element.country}','${element.petroleum_product}',${element.sale});`, (err) => {
+                                                              VALUES('${element.year}',
+                                                                      '${element.country}',
+                                                                      '${element.petroleum_product}',
+                                                                      ${element.sale});`, (err) => {
                                                 if (err) {console.log(err);
                        
                                             }
@@ -81,7 +88,11 @@ router.post('/fetch',  function(req,res)
 )   
 router.get('/sales', function(req,res)
 {
-    const sql = "SELECT country,product,SUM(sales) AS sales FROM report WHERE sales !='0' GROUP BY country,product;";
+    const sql = `SELECT country,product,SUM(sales) AS sales FROM report
+                  WHERE 
+                  sales !='0' 
+                  GROUP BY 
+                  country,product;`;
     pool.query("SELECT count(*) FROM report;",function(err,count){
          if(err){console.log(err);}
          else
@@ -109,7 +120,14 @@ router.get('/sales', function(req,res)
     
 })
 router.get('/least',function(req,res){
-    const sql = "SELECT c.year,c.product,c.sales from report AS c INNER JOIN (SELECT product,MIN(NULLIF(sales,0)) AS sales from report GROUP BY product)AS cmp ON c.product = cmp.product AND c.sales = cmp.sales ;";
+    const sql = `SELECT c.year,c.product,c.sales from report AS c
+                INNER JOIN 
+                (
+                    SELECT product,MIN(NULLIF(sales,0)) AS sales from report 
+                    GROUP BY 
+                    product
+                )AS cmp 
+                ON c.product = cmp.product AND c.sales = cmp.sales ;`
     pool.query("SELECT count(*) FROM report;",function(err,count){
         if(err){console.log(err);}
         else
@@ -137,7 +155,12 @@ router.get('/least',function(req,res){
 })
 router.get('/interval',function(req,res)
 {
-    const sql =  `SELECT product,CAST(min(year)AS TEXT) ||'-'|| CAST(max(year)AS TEXT) AS interval ,AVG(NULLIF(sales, 0)) AS Avg_sale from report  GROUP BY CEIL((year :: decimal)/2),product ORDER BY interval;`;
+    const sql =  `SELECT product,CAST(min(year)AS TEXT) ||'-'|| CAST(max(year)AS TEXT) AS interval ,
+                 AVG(NULLIF(sales, 0)) AS Avg_sale from report 
+                  GROUP BY 
+                  CEIL((year :: decimal)/2),product 
+                  ORDER BY
+                   interval;`;
     pool.query("SELECT count(*) FROM report;",function(err,count){
         if(err){console.log(err);}
         else
