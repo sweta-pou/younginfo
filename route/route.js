@@ -14,7 +14,7 @@ router.get('/',function(req,res)
         console.log(" report table created");
     }
 })
-console.log("dtatabase",process.env.DATABSE_URL);
+console.log("dtatabase",process.env.DATABASE_URL);
     res.render('home');
 }
 ) 
