@@ -1,0 +1,16 @@
+<%- include ("./partials/header") %>
+<table >
+    <tr>
+        <th><%= Object.keys(result.rows[0])[0] %></th>
+        <th><%= Object.keys(result.rows[0])[1] %></th> 
+        <th><%= Object.keys(result.rows[0])[2] %></th>
+      </tr>
+        <% for (const res of result.rows) { %>
+            <tr>
+           <td><%= res[Object.keys(result.rows[0])[0]] %></td>
+           <td><%= res[Object.keys(result.rows[0])[1]] %></td>
+            <td><%= res[Object.keys(result.rows[0])[2]] %></td>
+          </tr>
+
+        <% } %>
+ </table>

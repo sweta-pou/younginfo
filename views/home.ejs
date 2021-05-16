@@ -1,0 +1,26 @@
+<%- include ("./partials/header") %>
+<div class="ui container">
+    <form class="ui form" action="/fetch" method="POST">
+        <h1 class="ui dividing header">Fetch</h1>
+        <div class="field">
+          <label>Fetch API</label>
+            <input type="text" name="API" value="https://raw.githubusercontent.com/younginnovations/internship-challenges/master/programming/petroleum-report/data.json" >
+        </div>
+        <button class="ui green button one" tabindex="0">Fetch</button>
+    </form>
+         <a href="/remove"><button class="ui red button one mt-3" tabindex="0">Remove Data</button></a>
+    <div class="ui horizontal divider">Solutions</div>
+    <a href="/sales"><button class="ui teal  button" tabindex="0">Get sum of sales by country</button></a>
+    <a href="/interval"><button class="ui teal button" tabindex="0">Get interval table</button></a>
+    
+    <a href="/least"><button class="ui teal button" tabindex="0">Get year of least sale</button></a>
+</div>
+
+
+
+
+
+
+
+<%- include ("./partials/footer") %>
+
