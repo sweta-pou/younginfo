@@ -1,0 +1,31 @@
+nav.navbar
+{
+    background-color:rgb(102, 153, 153);
+    color: black;
+}
+a.navbar-brand,a.nav-link
+{
+    color: black;
+}
+ th, td {
+    border: 1px solid black;
+  }
+  table{
+    border: 1px solid black;
+   margin-top: 10px;
+   width:50%;
+   margin-left: 20vw;
+  }
+.ui.container{
+    margin-top: 100px;
+}
+.ui.horizontal.divider{
+    margin-top: 50px;
+}
+.ui.button.one{
+    margin-left: 30vw;
+}
+#message
+{
+    margin-top: 20px;
+}
